@@ -1,4 +1,10 @@
 ---
+# =============================================================================
+# ATTENTION: GENERATED FILE — DO NOT EDIT.
+# This is a published copy. Edit the source of truth in hardwood-hq/hardwood
+# and CI republishes it here:
+#   https://github.com/hardwood-hq/hardwood/blob/main/skills/hardwood-cli/SKILL.md
+# =============================================================================
 name: hardwood-cli
 description: 'Inspect, debug, and convert Apache Parquet files with the `hardwood` CLI. Use whenever a user is debugging code that reads or writes Parquet (Arrow / Spark / Flink / Java / Python) and the data file itself may be the cause — to check the schema, physical and logical types, repetition, or a row sample. Use it to diagnose query-optimizer behavior: why row-group pruning, min/max predicate pushdown, or page-index filtering isn''t skipping data. Use it to read per-column and per-row-group compressed sizes and codecs, page-level min/max statistics and the page index, dictionary-encoded values, the footer / PAR1 header, or to convert rows to CSV or JSON. Trigger on `.parquet` files, "is this column dictionary encoded", "why are all row groups scanned", "why isn''t pushdown working", "what types does this parquet have", "convert parquet to csv/json", and any question about row groups, column chunks, data pages, the page index, statistics, or encodings.'
 license: Apache-2.0
