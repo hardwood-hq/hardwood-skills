@@ -1,0 +1,61 @@
+#
+#  SPDX-License-Identifier: Apache-2.0
+#
+#  Copyright The original authors
+#
+#  Licensed under the Apache Software License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+#
+
+name: Publish skills
+
+# Reacts to the publish-skills repository_dispatch fired by the main
+# hardwood-hq/hardwood repository (see its .github/workflows/skills-trigger.yml)
+# and refreshes skills/ from the source ref carried in the event. The main
+# repository is the single source of truth; skills/ here is a published mirror,
+# never edited directly.
+
+on:
+  repository_dispatch:
+    types: [publish-skills]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out this repository'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6 — https://github.com/actions/checkout/releases/tag/v6
+
+      - name: 'Check out source skills at the published ref'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6 — https://github.com/actions/checkout/releases/tag/v6
+        with:
+          repository: hardwood-hq/hardwood
+          ref: ${{ github.event.client_payload.source_ref }}
+          path: _source
+
+      - name: 'Sync skills/ from source and commit if changed'
+        env:
+          # Stamp the commit from the source ref, not this repo's GITHUB_SHA.
+          SOURCE_REF: ${{ github.event.client_payload.source_ref }}
+        run: |
+          if [ ! -d _source/skills ]; then
+            echo "Source ref $SOURCE_REF has no skills/ directory; nothing to publish." >&2
+            exit 1
+          fi
+
+          rm -rf skills
+          cp -a _source/skills skills
+          rm -rf _source
+
+          if git diff --quiet -- skills; then
+            echo "skills/ already up to date with hardwood@$SOURCE_REF; nothing to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add skills
+          git commit -m "Publish skills from hardwood@${SOURCE_REF:0:12}"
+          git push
