@@ -1,0 +1,9 @@
+{
+  "name": "hardwood",
+  "description": "Skills for inspecting, debugging, and converting Apache Parquet files with the hardwood CLI.",
+  "version": "0.1.0",
+  "author": {
+    "name": "hardwood-hq"
+  },
+  "homepage": "https://github.com/hardwood-hq/hardwood"
+}

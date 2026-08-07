@@ -1,0 +1,15 @@
+{
+  "name": "hardwood-skills",
+  "description": "Official Claude Code plugins for the hardwood Parquet toolkit.",
+  "owner": {
+    "name": "hardwood-hq",
+    "url": "https://github.com/hardwood-hq"
+  },
+  "plugins": [
+    {
+      "name": "hardwood",
+      "source": "./",
+      "description": "Inspect, debug, and convert Apache Parquet files with the hardwood CLI."
+    }
+  ]
+}
