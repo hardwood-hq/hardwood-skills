@@ -47,6 +47,7 @@ jobs:
 
           rm -rf skills
           cp -a _source/skills skills
+          bash _source/tools/stamp-skill-banner.sh skills
           rm -rf _source
 
           if git diff --quiet -- skills; then
