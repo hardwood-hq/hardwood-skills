@@ -131,7 +131,7 @@ about (nested fields use dot notation) and pick head or tail:
 ```shell
 hardwood print   -n 5  -c "id,account.organization.name" -f FILE  # ASCII
 hardwood convert -n 50 --format csv -c "id,value" -f FILE         # CSV to stdout
-hardwood convert -n 5  --format json -o sample.json -f FILE       # JSON to a file
+hardwood convert -n 10 --format json -o sample.json -f FILE       # JSON to a file
 ```
 
 Row-limit semantics for `-n`/`--rows` (used by both `print` and `convert`):
